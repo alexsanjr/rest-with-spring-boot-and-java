@@ -10,7 +10,8 @@ public class MathController {
 	private static final AtomicLong counter = new AtomicLong();
 
 	@GetMapping("/sum/{num1}/{num2}")
-	public Double sum(@PathVariable(value = "num1") String num1, @PathVariable(value = "num2") String num2)
+	public Double sum(@PathVariable(value = "num1") String num1,
+			@PathVariable(value = "num2") String num2)
 			throws Exception {
 
 		if (!isNumeric(num1) || !isNumeric(num2)) {
