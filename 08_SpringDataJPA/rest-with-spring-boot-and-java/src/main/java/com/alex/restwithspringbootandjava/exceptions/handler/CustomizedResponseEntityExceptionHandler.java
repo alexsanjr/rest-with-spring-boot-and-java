@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import com.alex.restwithspringbootandjava.exceptions.ExceptionResponse;
-import com.alex.restwithspringbootandjava.exceptions.UnsupportedMathOperationException;
+import com.alex.restwithspringbootandjava.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,12 +24,12 @@ public class CustomizedResponseEntityExceptionHandler {
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(UnsupportedMathOperationException.class)
-	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(
 			Exception ex, HttpServletRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
 				Instant.now(), ex.getMessage(), request.getRequestURI());
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
 	}
 }
