@@ -18,7 +18,7 @@ import com.alex.restwithspringbootandjava.data.vo.v1.PersonVO;
 import com.alex.restwithspringbootandjava.services.PersonServices;
 
 @RestController
-@RequestMapping("/persons")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
 	@Autowired
