@@ -66,7 +66,7 @@ class PersonServicesTest {
 		assertEquals("Last Name Test1", personOne.getLastName());
 		assertEquals("Female", personOne.getGender());
 		
-		PersonVO personFour = people.get(1);
+		PersonVO personFour = people.get(4);
 		
 		assertNotNull(personFour);
 		assertNotNull(personFour.getKey());
