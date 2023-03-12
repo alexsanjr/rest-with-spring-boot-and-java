@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import com.alex.restwithspringbootandjava.exceptions.ExceptionResponse;
-import com.alex.restwithspringbootandjava.exceptions.RequiredObjectisNullException;
+import com.alex.restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.alex.restwithspringbootandjava.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +34,7 @@ public class CustomizedResponseEntityExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
 	}
 	
-	@ExceptionHandler(RequiredObjectisNullException.class)
+	@ExceptionHandler(RequiredObjectIsNullException.class)
 	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
 			Exception ex, HttpServletRequest request) {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(

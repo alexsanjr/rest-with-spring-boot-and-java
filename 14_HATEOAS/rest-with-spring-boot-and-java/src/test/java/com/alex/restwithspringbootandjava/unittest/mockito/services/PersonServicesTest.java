@@ -20,7 +20,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.alex.restwithspringbootandjava.data.vo.v1.PersonVO;
-import com.alex.restwithspringbootandjava.exceptions.RequiredObjectisNullException;
+import com.alex.restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.alex.restwithspringbootandjava.model.Person;
 import com.alex.restwithspringbootandjava.repositories.PersonRepository;
 import com.alex.restwithspringbootandjava.services.PersonServices;
@@ -135,9 +135,9 @@ class PersonServicesTest {
 
 	@Test
 	void testCreateWithNullPerson() {
-		Exception exception = assertThrows(RequiredObjectisNullException.class, () -> service.create(null));
+		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> service.create(null));
 
-		String expectedMessage = "It is not allowed to persiste a null object!";
+		String expectedMessage = "It is not allowed to persist a null object!";
 		String actualMessage = exception.getMessage();
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
@@ -171,9 +171,9 @@ class PersonServicesTest {
 
 	@Test
 	void testUpdateWithNullPerson() {
-		Exception exception = assertThrows(RequiredObjectisNullException.class, () -> service.update(null));
+		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> service.update(null));
 
-		String expectedMessage = "It is not allowed to persiste a null object!";
+		String expectedMessage = "It is not allowed to persist a null object!";
 		String actualMessage = exception.getMessage();
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
@@ -185,6 +185,6 @@ class PersonServicesTest {
 
 		when(repository.findById(1L)).thenReturn(Optional.of(entity));
 
-		service.delete(1L);
+		service.delete(entity.getId());
 	}
 }
