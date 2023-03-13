@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "books")
 public class Books implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -17,18 +20,19 @@ public class Books implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String author;
-	private LocalDateTime launchTime;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private LocalDateTime launchDate;
 	private Double price;
 	private String title;
 	
 	public Books() {
 	}
 
-	public Books(Long id, String author, LocalDateTime launchTime, Double price, String title) {
+	public Books(Long id, String author, LocalDateTime launchDate, Double price, String title) {
 		super();
 		this.id = id;
 		this.author = author;
-		this.launchTime = launchTime;
+		this.launchDate = launchDate;
 		this.price = price;
 		this.title = title;
 	}
@@ -50,11 +54,11 @@ public class Books implements Serializable{
 	}
 
 	public LocalDateTime getLaunchTime() {
-		return launchTime;
+		return launchDate;
 	}
 
-	public void setLaunchTime(LocalDateTime launchTime) {
-		this.launchTime = launchTime;
+	public void setLaunchTime(LocalDateTime launchDate) {
+		this.launchDate = launchDate;
 	}
 
 	public Double getPrice() {
