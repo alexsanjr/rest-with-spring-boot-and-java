@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
+import com.alex.restwithspringbootandjava.mapper.DozerMapper;
 import com.alex.restwithspringbootandjava.model.Books;
 import com.alex.restwithspringbootandjava.repositories.BooksRepository;
 
@@ -17,9 +19,10 @@ public class BooksServices {
 	@Autowired
 	BooksRepository repository;
 
-	public List<Books> findAll() {
+	public List<BooksVO> findAll() {
 		
 		logger.info("Finding all books!");
-		return repository.findAll();
+		List<Books> books = repository.findAll();
+		return DozerMapper.parseListObjects(books, BooksVO.class);
 	}
 }

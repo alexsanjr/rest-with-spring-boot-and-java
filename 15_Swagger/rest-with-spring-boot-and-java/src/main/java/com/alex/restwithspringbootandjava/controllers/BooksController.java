@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alex.restwithspringbootandjava.model.Books;
+import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
 import com.alex.restwithspringbootandjava.services.BooksServices;
 import com.alex.restwithspringbootandjava.util.MediaType;
 
@@ -20,8 +20,7 @@ public class BooksController {
 	BooksServices service;
 	
 	@GetMapping(produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
-	public ResponseEntity<List<Books>> findAll() {
-		
+	public ResponseEntity<List<BooksVO>> findAll() {
 		return ResponseEntity.ok(service.findAll());
 	}
 
