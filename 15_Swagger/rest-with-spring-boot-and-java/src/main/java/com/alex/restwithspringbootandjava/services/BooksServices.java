@@ -1,11 +1,15 @@
 package com.alex.restwithspringbootandjava.services;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alex.restwithspringbootandjava.controllers.BooksController;
 import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
 import com.alex.restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.alex.restwithspringbootandjava.exceptions.ResourceNotFoundException;
@@ -26,6 +30,8 @@ public class BooksServices {
 		logger.info("Finding all books!");
 		List<Books> books = repository.findAll();
 		List<BooksVO> vo = DozerMapper.parseListObjects(books, BooksVO.class);
+		vo.stream().forEach(b -> b.add(linkTo(methodOn(BooksController.class)
+				.findById(b.getKey())).withSelfRel()));
 		return vo;
 	}
 
@@ -34,6 +40,7 @@ public class BooksServices {
 		Books books = repository.findById(id).orElseThrow(() ->new ResourceNotFoundException("No records found for this ID!	"));
 		
 		BooksVO vo = DozerMapper.parseObject(books, BooksVO.class);
+		vo.add(linkTo(methodOn(BooksController.class).findById(id)).withSelfRel());
 		return vo;
 	}
 
@@ -42,8 +49,9 @@ public class BooksServices {
 		
 		Books book = DozerMapper.parseObject(vo, Books.class);
 		book = repository.save(book);
-		return DozerMapper.parseObject(book, BooksVO.class);
-		
+		vo = DozerMapper.parseObject(book, BooksVO.class);
+		vo.add(linkTo(methodOn(BooksController.class).findById(vo.getKey())).withSelfRel());
+		return vo;
 	}
 
 	public BooksVO update(BooksVO vo) {
@@ -53,8 +61,9 @@ public class BooksServices {
 		entity.setLaunchTime(vo.getLaunchTime());
 		entity.setPrice(vo.getPrice());
 		entity.setTitle(vo.getTitle());
-		
-		return DozerMapper.parseObject(repository.save(entity), BooksVO.class);
+		vo = DozerMapper.parseObject(repository.save(entity), BooksVO.class);
+		vo.add(linkTo(methodOn(BooksController.class).findById(vo.getKey())).withSelfRel());
+		return vo;
 	}
 
 	public void delete(Long id) {
