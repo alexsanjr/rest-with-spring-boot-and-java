@@ -18,6 +18,7 @@ import com.alex.restwithspringbootandjava.services.PersonServices;
 import com.alex.restwithspringbootandjava.util.MediaType;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -64,7 +65,7 @@ public class PersonController {
 			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
 			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
 	})
-	public PersonVO findById(@PathVariable(value = "id") Long id) {
+	public PersonVO findById(@PathVariable(value = "id") @Parameter(description = "The Id of the person to find.") Long id) {
 		return service.findById(id);
 	}
 
