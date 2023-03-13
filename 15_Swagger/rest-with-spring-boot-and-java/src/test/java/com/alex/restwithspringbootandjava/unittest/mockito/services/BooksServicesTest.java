@@ -22,9 +22,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
 import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
+import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
 import com.alex.restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.alex.restwithspringbootandjava.model.Books;
-import com.alex.restwithspringbootandjava.model.Person;
+import com.alex.restwithspringbootandjava.model.Books;
 import com.alex.restwithspringbootandjava.repositories.BooksRepository;
 import com.alex.restwithspringbootandjava.services.BooksServices;
 import com.alex.restwithspringbootandjava.unittests.mapper.mocks.MockBooks;
@@ -136,6 +137,61 @@ class BooksServicesTest {
 		assertEquals(1.0, result.getPrice());
 		assertEquals(LocalDateTime.of(2023, 1, 1, 1, 1), result.getLaunchTime());
 		assertEquals("Title test1", result.getTitle());
+	}
+	
+	@Test
+	void testCreateWithNullBooks() {
+		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> service.create(null));
+
+		String expectedMessage = "It is not allowed to persist a null object!";
+		String actualMessage = exception.getMessage();
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+
+	@Test
+	void testUpdate() {
+		Books entity = input.mockEntity(1);
+		entity.setId(1L);
+
+		Books persisted = entity;
+		persisted.setId(1L);
+
+		BooksVO vo = input.mockVO(1);
+		vo.setKey(1L);
+
+		when(repository.findById(1L)).thenReturn(Optional.of(entity));
+		when(repository.save(entity)).thenReturn(persisted);
+
+		BooksVO result = service.update(vo);
+
+		assertNotNull(result);
+		assertNotNull(result.getKey());
+		//assertNotNull(result.getLinks());
+
+		//assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+		assertEquals("Author test1", result.getAuthor());
+		assertEquals(1.0, result.getPrice());
+		assertEquals(LocalDateTime.of(2023, 1, 1, 1, 1), result.getLaunchTime());
+		assertEquals("Title test1", result.getTitle());
+	}
+
+	@Test
+	void testUpdateWithNullBooks() {
+		Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> service.update(null));
+
+		String expectedMessage = "It is not allowed to persist a null object!";
+		String actualMessage = exception.getMessage();
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+
+	@Test
+	void testDelete() {
+		Books entity = input.mockEntity(1);
+		entity.setId(1L);
+
+		when(repository.findById(1L)).thenReturn(Optional.of(entity));
+
+		service.delete(entity.getId());
 	}
 
 }
