@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.alex.restwithspringbootandjava.data.vo.v1.BooksVO;
-import com.alex.restwithspringbootandjava.data.vo.v1.PersonVO;
 import com.alex.restwithspringbootandjava.services.BooksServices;
 import com.alex.restwithspringbootandjava.util.MediaType;
 

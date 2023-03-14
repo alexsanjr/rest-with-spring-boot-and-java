@@ -19,10 +19,15 @@ public class Books implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(nullable = false, length = 180)
 	private String author;
+	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private LocalDateTime launchDate;
 	private Double price;
+	
+	@Column(nullable = false, length = 250)
 	private String title;
 	
 	public Books() {
