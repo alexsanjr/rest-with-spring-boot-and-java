@@ -14,7 +14,7 @@ import org.testcontainers.lifecycle.Startables;
 @ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
 public class AbstractIntegrationTest {
 
-	public class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+	static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 		
 		static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15.2");
 		
