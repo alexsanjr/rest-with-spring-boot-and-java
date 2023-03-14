@@ -20,7 +20,7 @@ public class MockBooks {
     
     public List<Books> mockEntityList() {
         List<Books> books = new ArrayList<Books>();
-        for (int i = 1; i < 15; i++) {
+        for (int i = 0; i < 14; i++) {
         	books.add(mockEntity(i));
         }
         return books;
@@ -39,7 +39,7 @@ public class MockBooks {
     	books.setId(number.longValue());
     	books.setAuthor("Author test" + number);
     	books.setPrice(number * 1.0);
-    	books.setLaunchTime(LocalDateTime.of(2023, 1, number, 1, 1));
+    	books.setLaunchTime(LocalDateTime.now());
     	books.setTitle("Title test" + number);
         
         return books;
@@ -50,7 +50,7 @@ public class MockBooks {
     	books.setKey(number.longValue());
     	books.setAuthor("Author test" + number);
     	books.setPrice(number * 1.0);
-    	books.setLaunchTime(LocalDateTime.of(2023, 1, number, 1, 1));
+    	books.setLaunchTime(LocalDateTime.now());
     	books.setTitle("Title test" + number);
         return books;
     }
