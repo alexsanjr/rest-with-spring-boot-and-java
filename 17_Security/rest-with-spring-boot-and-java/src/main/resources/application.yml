@@ -1,0 +1,22 @@
+cors:
+  originPatterns: http://localhost:8080,https://alex.com
+spring:
+   datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/rest_spring_boot_course?useTimezone=true&serverTimezone=UTC
+    username: postgres
+    password: 1234
+    
+   jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+
+springdoc:
+  pathsToMatch: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true

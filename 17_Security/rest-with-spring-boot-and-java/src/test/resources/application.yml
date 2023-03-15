@@ -1,0 +1,20 @@
+server:
+  port: 8888
+cors:
+  originPatterns: http://localhost:8080,https://alex.com
+spring:
+   datasource:
+    driver-class-name: org.postgresql.Driver  
+   jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+
+springdoc:
+  pathsToMatch: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
