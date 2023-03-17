@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import com.alex.restwithspringbootandjava.exceptions.ExceptionResponse;
+import com.alex.restwithspringbootandjava.exceptions.InvalidJwtAuthenticationException;
 import com.alex.restwithspringbootandjava.exceptions.RequiredObjectIsNullException;
 import com.alex.restwithspringbootandjava.exceptions.ResourceNotFoundException;
 
@@ -41,5 +42,14 @@ public class CustomizedResponseEntityExceptionHandler {
 				Instant.now(), ex.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
+	}
+	
+	@ExceptionHandler(InvalidJwtAuthenticationException.class)
+	public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationExceptions(
+			Exception ex, HttpServletRequest request) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				Instant.now(), ex.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exceptionResponse);
 	}
 }
