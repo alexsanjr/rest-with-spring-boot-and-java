@@ -18,7 +18,7 @@
 		<dozer.version>6.4.0</dozer.version>
 		<springdoc.version>2.0.3</springdoc.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
-		<java-jwt.version>3.18.3</java-jwt.version>
+		<java-jwt.version>4.3.0</java-jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,6 +32,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.hateoas</groupId>
