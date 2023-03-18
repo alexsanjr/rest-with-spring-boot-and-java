@@ -1,4 +1,4 @@
-package com.alex.restwithspringbootandjava.securityJwt;
+package com.alex.restwithspringbootandjava.security.jwt;
 
 import java.time.Instant;
 import java.util.Base64;
@@ -30,7 +30,7 @@ public class JwtTokenProvider {
 	@Value("${security.jwt.token.secret-key:secret}")
 	private String secretKey = "secret";
 	
-	@Value("${security.jwt.token.expire-lenght:3600000}")
+	@Value("${security.jwt.token.expire-length:3600000}")
 	private long validityInMilliseconds = 3600000; // 1h
 	
 	@Autowired
@@ -114,6 +114,5 @@ public class JwtTokenProvider {
 		} catch (Exception e) {
 			throw new InvalidJwtAuthenticationException("Expired or invalid JWT token!");
 		}
-		
 	}
 }
