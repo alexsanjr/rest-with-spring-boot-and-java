@@ -1,10 +1,10 @@
 package com.alex.restwithspringbootandjava.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,14 +41,14 @@ public class User implements UserDetails, Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "id_user"),
 		inverseJoinColumns = @JoinColumn(name = "id_permission"))
-	private Set<Permission> permissions;
+	private List<Permission> permissions;
 
 	public User() {
 		super();
 	}
 
-	public Set<String> getRoles() {
-		Set<String> roles = new HashSet<>();
+	public List<String> getRoles() {
+		List<String> roles = new ArrayList<>();
 		for (Permission permission : permissions) {
 			roles.add(permission.getDescription());
 		}
@@ -146,7 +146,7 @@ public class User implements UserDetails, Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<Permission> getPermissions() {
+	public List<Permission> getPermissions() {
 		return permissions;
 	}
 
