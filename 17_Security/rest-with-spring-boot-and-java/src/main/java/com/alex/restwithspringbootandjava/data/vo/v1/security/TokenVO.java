@@ -60,11 +60,11 @@ public class TokenVO implements Serializable {
 		this.expiration = expiration;
 	}
 
-	public String getAccessToke() {
+	public String getAccessToken() {
 		return accessToken;
 	}
 
-	public void setAccessToke(String accessToken) {
+	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 	}
 
