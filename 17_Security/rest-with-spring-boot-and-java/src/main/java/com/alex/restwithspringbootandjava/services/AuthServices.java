@@ -19,31 +19,44 @@ public class AuthServices {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private JwtTokenProvider tokenProvider;
-	
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	public ResponseEntity<TokenVO> signin(AccountCredentialsVO data) {
 		try {
 			String username = data.getUsername();
 			String password = data.getPassword();
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-			
+
 			User user = repository.findByUsername(username);
-			
+
 			TokenVO tokenResponse = new TokenVO();
 			if (user != null) {
 				tokenResponse = tokenProvider.createAccessToken(username, user.getRoles());
 			} else {
 				throw new UsernameNotFoundException("Username " + username + " not found!");
 			}
-			
+
 			return ResponseEntity.ok(tokenResponse);
 		} catch (Exception e) {
 			throw new BadCredentialsException("Invalid username/password supplied!");
 		}
+	}
+
+	public ResponseEntity<TokenVO> refreshToken(String username, String refreshToken) {
+		User user = repository.findByUsername(username);
+
+		TokenVO tokenResponse = new TokenVO();
+		if (user != null) {
+			tokenResponse = tokenProvider.refreshToken(refreshToken);
+		} else {
+			throw new UsernameNotFoundException("Username " + username + " not found!");
+		}
+
+		return ResponseEntity.ok(tokenResponse);
 	}
 }
